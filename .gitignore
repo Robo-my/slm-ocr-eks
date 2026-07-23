@@ -45,3 +45,7 @@ kubeconfig*
 # --- Build artifacts ---
 *.log
 dist/
+
+# --- Local-only working notes ---
+CLAUDE.md
+COMPLETE_PLAN.md
