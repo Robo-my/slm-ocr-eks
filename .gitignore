@@ -49,3 +49,7 @@ dist/
 # --- Local-only working notes ---
 CLAUDE.md
 COMPLETE_PLAN.md
+
+# Paid course material & local env tooling — never commit
+*.docx
+.envrc

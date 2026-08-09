@@ -1,0 +1,26 @@
+# Week 1 lab: run-to-completion Job on the untainted system node group,
+# calling the API on the tainted apinp group over the cluster-internal DNS
+# name — proving cross-node-group ClusterIP networking.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: document-batch-job
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    metadata:
+      name: batch-job-runner
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: job-runner
+          image: curlimages/curl:latest
+          command:
+            - "sh"
+            - "-c"
+            - |
+              echo "Starting batch document processing job..."
+              RESPONSE=$(curl -s http://ocr-inference-service.default.svc.cluster.local:80)
+              echo "Response received from internal API pod:"
+              echo "$RESPONSE"
+              echo "Job completed successfully."
