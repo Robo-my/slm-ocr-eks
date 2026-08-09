@@ -28,5 +28,8 @@
 ## Verification
 
 - `terraform validate` ✅
-- `terraform apply` + `kubectl get nodes -L role` + lab Job logs: _pending credential refresh — see PR_.
+- `terraform apply` (Aug 9): 26 resources, cluster `slm-ocr-eks-dev` ACTIVE, all 5 node groups ACTIVE ✅
+- `kubectl get nodes -L role`: 4 CPU nodes Ready; `system` untainted, `apinp`/`redisnp` tainted `dedicated`; zero GPU nodes ✅
+- Lab: API pod scheduled onto the tainted `apinp` node; Job on a `system` node curled `ocr-inference-service.default.svc.cluster.local` across node groups and completed ✅
+- NVIDIA device plugin DaemonSet installed (desired=0 while GPU groups idle at zero — expected) ✅
 - GPU `nvidia.com/gpu` allocatable check deferred to Week 3 (first real GPU need; avoids ~$0.80/hr just for a smoke test).

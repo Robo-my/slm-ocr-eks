@@ -75,7 +75,7 @@ Redis, KEDA, vLLM, the GLM-OCR SDK, and both application services are cloud-agno
 ## Build progress (6-week roadmap)
 
 - [x] **Week 0 — Scaffold & AWS setup**: repo structure, Terraform skeleton, quota requests, budget alarms
-- [ ] **Week 1 — Kubernetes for AI Systems**: VPC + EKS + CPU/GPU (L4) node groups via Terraform, NVIDIA device plugin, taints & tolerations, cross-node-group lab
+- [x] **Week 1 — Kubernetes for AI Systems**: VPC + EKS + CPU/GPU (L4) node groups via Terraform, NVIDIA device plugin, taints & tolerations, cross-node-group lab
 - [ ] **Week 2 — SOTA OCR & VDU**: single-stage vs two-stage evaluation, GLM-OCR SDK layout detection deep dive
 - [ ] **Week 3 — vLLM Inference Engine**: Qwen 3.5 4B on vLLM (MTP, chunked prefill, 262K batched tokens), first A100 benchmark
 - [ ] **Week 4 — Rust Ingest Gateway**: high-concurrency Axum producer, 10MB limits, atomic Redis writes
