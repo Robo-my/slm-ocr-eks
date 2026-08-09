@@ -21,26 +21,29 @@ provider "aws" {
   }
 }
 
-# Week 1: uncomment as modules are implemented.
-#
-# module "vpc" {
-#   source       = "../../modules/vpc"
-#   project_name = var.project_name
-# }
-#
-# module "eks" {
-#   source       = "../../modules/eks"
-#   project_name = var.project_name
-#   vpc_id       = module.vpc.vpc_id
-#   subnet_ids   = module.vpc.private_subnet_ids
-# }
-#
-# module "nodegroups" {
-#   source       = "../../modules/nodegroups"
-#   cluster_name = module.eks.cluster_name
-#   subnet_ids   = module.vpc.private_subnet_ids
-# }
-#
+module "vpc" {
+  source       = "../../modules/vpc"
+  project_name = var.project_name
+}
+
+module "eks" {
+  source          = "../../modules/eks"
+  cluster_name    = local.cluster_name
+  cluster_version = var.cluster_version
+  subnet_ids      = module.vpc.private_subnet_ids
+}
+
+module "nodegroups" {
+  source       = "../../modules/nodegroups"
+  cluster_name = module.eks.cluster_name
+  subnet_ids   = module.vpc.private_subnet_ids
+  node_groups  = var.node_groups
+}
+
+locals {
+  cluster_name = "${var.project_name}-dev"
+}
+
 # Week 3:
 # module "ecr" {
 #   source       = "../../modules/ecr"
@@ -52,3 +55,11 @@ provider "aws" {
 #   source       = "../../modules/apigw"
 #   project_name = var.project_name
 # }
+
+output "cluster_name" {
+  value = module.eks.cluster_name
+}
+
+output "update_kubeconfig" {
+  value = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name}"
+}

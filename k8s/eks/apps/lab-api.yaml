@@ -1,0 +1,56 @@
+# Week 1 lab (EKS port of the AKS hands-on lab from Lesson 1):
+# a stand-in "inference API" pinned to the dedicated apinp node group via the
+# taint+toleration+nodeSelector formula, exposed internally via ClusterIP.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocr-inference-api
+  labels:
+    app: ocr-inference-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocr-inference-api
+  template:
+    metadata:
+      labels:
+        app: ocr-inference-api
+    spec:
+      # Toleration lets the pod cross the dedicated=apinp taint barrier;
+      # the nodeSelector makes sure it actually lands there. Both are needed.
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "apinp"
+          effect: "NoSchedule"
+      nodeSelector:
+        role: apinp
+      containers:
+        - name: api-server
+          image: hashicorp/http-echo:latest
+          args:
+            - "-listen=:8000"
+            - "-text=hello from the apinp node group"
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocr-inference-service
+spec:
+  type: ClusterIP # internal virtual IP, zero public exposure
+  selector:
+    app: ocr-inference-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
