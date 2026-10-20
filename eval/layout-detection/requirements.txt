@@ -1,0 +1,8 @@
+# CPU-only torch keeps the install small; on a GPU box drop the index URL.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+glmocr[layout]==0.1.4
+transformers==5.3.0
+pymupdf
+pillow
+numpy

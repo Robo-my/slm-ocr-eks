@@ -76,7 +76,7 @@ Redis, KEDA, vLLM, the GLM-OCR SDK, and both application services are cloud-agno
 
 - [x] **Week 0 — Scaffold & AWS setup**: repo structure, Terraform skeleton, quota checks, budget alarms
 - [x] **Week 1 — Kubernetes for AI Systems**: VPC + EKS + CPU/GPU (L4) node groups via Terraform, NVIDIA device plugin, taints & tolerations, cross-node-group lab
-- [x] **Week 2 — SOTA OCR & VDU**: one-stage vs two-stage OCR trade-offs and the case for layout-first ([journal](docs/journal/week-02.md))
+- [x] **Week 2 — SOTA OCR & VDU**: one-stage vs two-stage trade-offs, PP-DocLayoutV3 evaluation on a real handwritten exam scan — diagnosed a ruled-paper failure mode, a pre-layout fix, and an ink-recall check for missed handwriting ([`eval/layout-detection/`](eval/layout-detection/))
 - [ ] **Week 3 — vLLM Inference Engine**: VLM serving on vLLM (chunked prefill, continuous batching), first L4 benchmark
 - [ ] **Week 4 — Rust Ingest Gateway**: high-concurrency Axum producer, 10MB limits, atomic Redis writes
 - [ ] **Week 5 — Async & Zero-Copy Ingestion**: Python worker with 100ms dynamic batching collector, `/dev/shm` handoff, KEDA scale-to-zero
@@ -88,6 +88,7 @@ Each week lands as a PR with its own verification step, plus a learning-log entr
 
 ```
 ├── docs/               # deployment guide, AWS design notes, weekly journal
+├── eval/               # offline model evaluations (layout detection, ...)
 ├── terraform/
 │   ├── modules/        # vpc, eks, nodegroups, ecr, apigw
 │   └── envs/dev/       # dev environment composition
