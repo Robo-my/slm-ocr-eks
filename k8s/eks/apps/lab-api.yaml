@@ -1,4 +1,4 @@
-# Week 1 lab (EKS port of the AKS hands-on lab from Lesson 1):
+# Week 1 lab:
 # a stand-in "inference API" pinned to the dedicated apinp node group via the
 # taint+toleration+nodeSelector formula, exposed internally via ClusterIP.
 apiVersion: apps/v1

@@ -50,6 +50,11 @@ dist/
 CLAUDE.md
 COMPLETE_PLAN.md
 
-# Paid course material & local env tooling — never commit
+# Local reference docs, test documents & env tooling — never commit
 *.docx
+/*.pdf
 .envrc
+
+# --- Eval inputs and outputs (may contain real documents) ---
+eval/**/data/
+eval/**/runs/
