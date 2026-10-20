@@ -54,7 +54,3 @@ COMPLETE_PLAN.md
 *.docx
 /*.pdf
 .envrc
-
-# --- Eval inputs and outputs (may contain real documents) ---
-eval/**/data/
-eval/**/runs/
