@@ -1,6 +1,6 @@
 # EKS Deployment Guide
 
-> This guide grows week by week alongside the build. Sections marked 🚧 are placeholders that get filled when the corresponding course week lands.
+> This guide grows week by week alongside the build. Sections marked 🚧 are placeholders that get filled when the corresponding week is built.
 
 ## Prerequisites (Week 0)
 
@@ -37,7 +37,7 @@ kubectl describe nodes | grep -A2 "Taints:"     # taints per table above
 kubectl apply -f ../../k8s/eks/infra/nvidia-device-plugin.yaml
 ```
 
-### Week 1 lab (EKS port of the Lesson 1 AKS lab)
+### Week 1 lab: cross-node-group networking
 
 ```bash
 kubectl apply -f k8s/eks/apps/lab-api.yaml      # Deployment on tainted apinp + ClusterIP Service
@@ -47,11 +47,11 @@ kubectl logs -f job/document-batch-job
 kubectl delete -f k8s/eks/apps/lab-job.yaml -f k8s/eks/apps/lab-api.yaml
 ```
 
-Unlike the course lab, the cluster is **not** torn down afterwards: control plane + CPU groups stay up (hybrid lifecycle); only GPU groups scale to zero.
+Lifecycle: GPU groups stay at zero, and between build sessions the whole environment is destroyed (`make tf-destroy`) and re-applied (~15 min) at the start of the next.
 
 ## Week 3 — vLLM server 🚧
 
-Build & push `services/vllm-server` to ECR, deploy `k8s/eks/apps/deployment-vlm.yml`, benchmark on A100, scale back to zero.
+Build & push `services/vllm-server` to ECR, deploy `k8s/eks/apps/deployment-vlm.yml`, benchmark on L4, scale back to zero.
 
 ## Week 4 — Rust ingest gateway 🚧
 
